@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>cors跨域请求页面</title>
+  </head>
+  <body>
+    <script>
+      let xhr = new XMLHttpRequest()
+      xhr.open('put', 'http://localhost:3300/cors1', true)
+      //设置请求头
+      xhr.setRequestHeader('name', 'ry')
+      document.cookie = 'user=1234'
+      xhr.withCredentials = true //携带cookie 重点
+      xhr.send()
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+          if ((xhr.status >= 200 && xhr < 300) || xhr.status == 304) {
+            //获取响应头
+            console.log(xhr.getResponseHeader('name'))
+            // console.log(xhr.response)
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
